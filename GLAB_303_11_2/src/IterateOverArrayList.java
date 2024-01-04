@@ -37,7 +37,17 @@ public class IterateOverArrayList {
         System.out.println("\n=== Iterate iterator ===");
         ListIterator iterator = tvShows.listIterator();
         System.out.println("Elements in forward direction");
-        System.out.println();
+        System.out.println("\n==== Iterate using while loop=====");
+
+        while(iterator.hasNext()){
+            System.out.println(iterator.next());
+        }
+
+        System.out.println("============Elements in backward direction=======");
+
+        while (iterator.hasPrevious()){
+            System.out.println(iterator.previous());
+        }
 
     }
 
