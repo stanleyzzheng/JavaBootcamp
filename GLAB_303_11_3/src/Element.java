@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class Element {
+public class Element {
+    public String appearance() {
+        return "OVERRIDE THIS METHOD";
+    }
 }
