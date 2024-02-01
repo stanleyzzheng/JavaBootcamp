@@ -48,17 +48,19 @@ public class manyToOneInteractive {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            session.close();
+            factory.close();
+
         }
 
-        session.close();
-        factory.close();
 
 
     }
 
     private static void manageDepartments(Scanner scanner, SessionFactory factory) {
         // Placeholder for department management logic (add/delete/modify)
-        Session session=factory.openSession();
+        Session session = factory.openSession();
 
         System.out.println("\n1. Add Departments");
         System.out.println("2. Delete Department");
@@ -94,11 +96,15 @@ public class manyToOneInteractive {
 
                 listDepts(session);
                 int deptId = scanner.nextInt();
-                Department d = session.get(Department.class,deptId);
-//                for(Teacher teacher: d.getTeacherList()){
-//                    teacher.setDepartment(null);
-//                }
+                Department d = session.get(Department.class, deptId);
+                for (Teacher teacher : d.getTeacherList()) {
+                    System.out.println(teacher);
+                    teacher.setDepartment(null);
+                    session.merge(teacher);
+                    System.out.println(teacher.getDepartment());
+                }
                 session.remove(d);
+
                 transaction.commit();
                 System.out.println("Department Deleted");
 
@@ -116,7 +122,6 @@ public class manyToOneInteractive {
                 d2.setDeptName(deptName);
                 session.merge(d2);
                 session.getTransaction().commit();
-                session.close();
 
                 break;
             case 4:
@@ -131,7 +136,7 @@ public class manyToOneInteractive {
 
     private static void manageTeachers(Scanner scanner, SessionFactory factory) {
         // Placeholder for teacher management logic (add/delete/modify)
-        Session session=factory.openSession();
+        Session session = factory.openSession();
 
         System.out.println("\n1. Add Teachers");
         System.out.println("2. Delete Teacher");
@@ -154,7 +159,7 @@ public class manyToOneInteractive {
                     System.out.println("Enter Teacher department: ");
                     int deptId = scanner.nextInt();
                     Department dept = session.get(Department.class, deptId);
-                    Teacher teacher = new Teacher(teachName,dept);
+                    Teacher teacher = new Teacher(teachName, dept);
                     teachArray.add(teacher);
                 }
                 for (int i = 0; i < teachArray.size(); i++) {
@@ -178,13 +183,13 @@ public class manyToOneInteractive {
                 d.setTeacherId(teachId);
                 session.remove(d);
                 transaction.commit();
-                System.out.printf("Teacher %s Deleted%n",teachId);
+                System.out.printf("Teacher %s Deleted%n", teachId);
 
                 break;
             case 3:
                 System.out.println("Which Teacher would you like to modify: ");
-                TypedQuery<Object[]> query2 = session.createQuery("SELECT T.teacherId, teacherName FROM Teacher AS T",
-                        Object[].class);
+                TypedQuery<Object[]> query2 = session.createQuery("SELECT T.teacherId, teacherName FROM Teacher AS T"
+                        , Object[].class);
                 List<Object[]> results2 = query2.getResultList();
                 System.out.printf("%s %s%n", "Teacher Id", "Teacher Name");
 
@@ -199,7 +204,6 @@ public class manyToOneInteractive {
                 t2.setTeacherName(teachName);
                 session.merge(t2);
                 session.getTransaction().commit();
-                session.close();
 
                 break;
             case 4:
@@ -213,6 +217,7 @@ public class manyToOneInteractive {
 
     private static void assignTeacherToDepartment(Scanner scanner, Session session) {
         // Placeholder for assigning teachers to departments
+        Transaction transaction = session.beginTransaction();
         listTeachers(session);
         System.out.println("Which Teacher would you like to modify: ");
 
@@ -226,12 +231,12 @@ public class manyToOneInteractive {
         Teacher teacherUpdate = session.get(Teacher.class, teachId);
         teacherUpdate.setDepartment(d);
         session.merge(teacherUpdate);
-        session.getTransaction().commit();
-        session.close();
+        transaction.commit();
+
         System.out.println("Teacher modified");
     }
 
-    private static void listDepts(Session session){
+    private static void listDepts(Session session) {
         TypedQuery<Object[]> query = session.createQuery("SELECT D.deptId, D.deptName FROM Department AS D",
                 Object[].class);
         List<Object[]> results = query.getResultList();
@@ -240,7 +245,8 @@ public class manyToOneInteractive {
             System.out.printf("%s. %s%n", a[0], a[1]);
         }
     }
-    private static void listTeachers(Session session){
+
+    private static void listTeachers(Session session) {
         TypedQuery<Object[]> query2 = session.createQuery("SELECT T.teacherId, teacherName FROM Teacher AS T",
                 Object[].class);
         List<Object[]> results2 = query2.getResultList();

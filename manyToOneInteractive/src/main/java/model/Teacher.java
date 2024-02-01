@@ -16,7 +16,7 @@ public class Teacher implements Serializable {
     private int teacherId;
     private String teacherName;
     @ManyToOne
-    @JoinColumn(name = "department_deptId")
+    @JoinColumn(name = "department_Id", nullable = true)
     private Department department;
 
 
@@ -50,5 +50,8 @@ public class Teacher implements Serializable {
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName; }
 
-
+    @Override
+    public String toString() {
+        return "Teacher{" + "teacherId=" + teacherId + ", teacherName='" + teacherName + '\'' + ", department=" + department + '}';
+    }
 }
