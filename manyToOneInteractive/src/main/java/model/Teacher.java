@@ -16,7 +16,7 @@ public class Teacher implements Serializable {
     private int teacherId;
     private String teacherName;
     @ManyToOne
-    @JoinColumn(name = "department_Id", nullable = true)
+    @JoinColumn(name = "department_Id")
     private Department department;
 
 

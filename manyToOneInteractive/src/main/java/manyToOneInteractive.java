@@ -22,13 +22,18 @@ public class manyToOneInteractive {
 //        Transaction transaction = session.beginTransaction();
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
-                System.out.println("\n1. Manage Departments");
+                System.out.println("\n0. Exit");
+                System.out.println("1. Manage Departments");
                 System.out.println("2. Manage Teachers");
                 System.out.println("3. Assign Teacher to Department");
-                System.out.println("4. Exit");
+                System.out.println("4. List Teachers");
+                System.out.println("5. List Department");
                 System.out.print("Choose an option: ");
                 int choice = scanner.nextInt();
                 switch (choice) {
+                    case 0:
+                        System.out.println("Exiting...");
+                        return;
                     case 1:
                         manageDepartments(scanner, factory);
                         break;
@@ -39,8 +44,11 @@ public class manyToOneInteractive {
                         assignTeacherToDepartment(scanner, session);
                         break;
                     case 4:
-                        System.out.println("Exiting...");
-                        return;
+                        listTeachers(session);
+                        break;
+                    case 5:
+                        listDepts(session);
+                        break;
                     default:
                         System.out.println("Invalid option. Please try again.");
                         break;
@@ -98,10 +106,10 @@ public class manyToOneInteractive {
                 int deptId = scanner.nextInt();
                 Department d = session.get(Department.class, deptId);
                 for (Teacher teacher : d.getTeacherList()) {
-                    System.out.println(teacher);
+//                    System.out.println(teacher);
                     teacher.setDepartment(null);
                     session.merge(teacher);
-                    System.out.println(teacher.getDepartment());
+//                    System.out.println(teacher.getDepartment());
                 }
                 session.remove(d);
 
@@ -171,13 +179,14 @@ public class manyToOneInteractive {
                 break;
             case 2:
                 System.out.println("Which Teacher would you like to delete: ");
-                TypedQuery<Object[]> query = session.createQuery("SELECT T.teacherId, teacherName FROM Teacher AS T",
-                        Object[].class);
-                List<Object[]> results = query.getResultList();
-                System.out.printf("%s %s%n", "Teacher Id", "Teacher Name");
-                for (Object[] a : results) {
-                    System.out.printf("%s. %s%n", a[0], a[1]);
-                }
+//                TypedQuery<Object[]> query = session.createQuery("SELECT T.teacherId, teacherName FROM Teacher AS T",
+//                        Object[].class);
+//                List<Object[]> results = query.getResultList();
+//                System.out.printf("%s %s%n", "Teacher Id", "Teacher Name");
+//                for (Object[] a : results) {
+//                    System.out.printf("%s. %s%n", a[0], a[1]);
+//                }
+                listTeachers(session);
                 int teachId = scanner.nextInt();
                 Teacher d = new Teacher();
                 d.setTeacherId(teachId);
@@ -188,14 +197,8 @@ public class manyToOneInteractive {
                 break;
             case 3:
                 System.out.println("Which Teacher would you like to modify: ");
-                TypedQuery<Object[]> query2 = session.createQuery("SELECT T.teacherId, teacherName FROM Teacher AS T"
-                        , Object[].class);
-                List<Object[]> results2 = query2.getResultList();
-                System.out.printf("%s %s%n", "Teacher Id", "Teacher Name");
 
-                for (Object[] a : results2) {
-                    System.out.printf("%s. %s%n", a[0], a[1]);
-                }
+                listTeachers(session);
                 int teachId2 = scanner.nextInt();
                 System.out.println("Give a new name for Teacher:");
                 String teachName = scanner.next();
@@ -223,7 +226,7 @@ public class manyToOneInteractive {
 
         int teachId = scanner.nextInt();
         listDepts(session);
-        System.out.println("Which department would you like to Teacher: ");
+        System.out.println("Which department would you like to assign to Teacher: ");
 
         int deptId = scanner.nextInt();
 
@@ -250,10 +253,10 @@ public class manyToOneInteractive {
         TypedQuery<Object[]> query2 = session.createQuery("SELECT T.teacherId, teacherName FROM Teacher AS T",
                 Object[].class);
         List<Object[]> results2 = query2.getResultList();
-        System.out.printf("%s %s%n", "Teacher Id", "Teacher Name");
+        System.out.printf("%5s %s%n", "Teacher Id", "Teacher Name");
 
         for (Object[] a : results2) {
-            System.out.printf("%s. %s%n", a[0], a[1]);
+            System.out.printf("%5s. %s%n", a[0], a[1]);
         }
     }
 
