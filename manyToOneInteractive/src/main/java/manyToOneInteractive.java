@@ -253,7 +253,7 @@ public class manyToOneInteractive {
         TypedQuery<Object[]> query2 = session.createQuery("SELECT T.teacherId, teacherName FROM Teacher AS T",
                 Object[].class);
         List<Object[]> results2 = query2.getResultList();
-        System.out.printf("%5s %s%n", "Teacher Id", "Teacher Name");
+        System.out.printf("%s %s%n", "Teacher Id", "Teacher Name");
 
         for (Object[] a : results2) {
             System.out.printf("%5s. %s%n", a[0], a[1]);
