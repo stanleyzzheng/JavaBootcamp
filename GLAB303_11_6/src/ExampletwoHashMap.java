@@ -15,6 +15,10 @@ public class ExampletwoHashMap {
         HashMap<String,String> copyHashMap = new HashMap<>();
         copyHashMap.putAll(newHashMap);
         System.out.println("copyHashMap mappings= " + copyHashMap);
+        String nullKeyValue = copyHashMap.remove(null);
+        System.out.println("copyHashMap null key value = " + nullKeyValue);
+        System.out.println("copyHashMap after removing null key = " + copyHashMap);
+        System.out.println("Size of copyHashMap is:" + copyHashMap.size());
 
     }
 }

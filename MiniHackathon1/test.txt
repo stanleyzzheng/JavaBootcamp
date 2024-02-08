@@ -1,0 +1,6 @@
+HashMap<String,List<String[]>>
+for(company c: List){
+sout
+}
+Organization Id Company Name Country Industry Number of employees
+
