@@ -1,0 +1,17 @@
+td,th{
+    border: 1px solid red;
+
+}
+body{
+    border-collapse: collapse;
+}
+table{
+    width: 200px;
+    height: 300px;
+    text-align: center;
+    border: 5px solid green;
+}
+td:hover {
+    background-color: lightcoral;
+    color: white;
+}

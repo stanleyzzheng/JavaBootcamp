@@ -2,11 +2,8 @@ package sba.sms.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -17,17 +14,34 @@ import java.util.Set;
  * Implement Lombok annotations to eliminate boilerplate code.
  */
 
-@NoArgsConstructor
-@AllArgsConstructor
-@RequiredArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@RequiredArgsConstructor
 @Setter
 @Getter
 @ToString
-
+@Entity
+@Table(name = "student")
 public class Student {
+    @Id
+    private  String email;
+    private  String name;
+    private  String password;
 
-
+    public Student() {
     }
+
+    public Student(String email, String name, String password) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Course> courses;
+
+
+}
 
 
 
