@@ -14,6 +14,7 @@ import sba.sms.utils.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * StudentService is a concrete class. This class implements the
@@ -53,9 +54,10 @@ public class StudentService implements StudentI {
             students = query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
         return students;
     }
 
@@ -68,9 +70,10 @@ public class StudentService implements StudentI {
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
     }
 
     @Override
@@ -84,9 +87,10 @@ public class StudentService implements StudentI {
             student = query.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
         return student;
     }
 
@@ -102,9 +106,10 @@ public class StudentService implements StudentI {
             student = query.uniqueResult();
         }catch(Exception e){
             e.printStackTrace();
-        }finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
         return student != null;
     }
 
@@ -112,7 +117,19 @@ public class StudentService implements StudentI {
     public void registerStudentToCourse(String email, int courseId) {
         try{
             openSession();
+            Transaction tx = session.beginTransaction();
+            Student s = session.get(Student.class, email);
+            Set<Course> c = s.getCourses();
+            Course newCourse = session.get(Course.class,courseId);
+            c.add(newCourse);
+            s.setCourses(c);
+//            session.merge(s);
+//            session.getTransaction().commit();
+
+            tx.commit();
             
+        } catch(Exception e){
+            e.printStackTrace();
         }
 
     }
@@ -128,9 +145,10 @@ public class StudentService implements StudentI {
             studentCourses = query.getResultList();
         }catch(Exception e){
             e.printStackTrace();
-        }finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
         return studentCourses;
     }
 }

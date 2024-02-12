@@ -47,10 +47,11 @@ public class CourseService implements CourseI {
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-
-            closeSession();
         }
+//        finally {
+//
+//            closeSession();
+//        }
     }
 
     @Override
@@ -60,12 +61,14 @@ public class CourseService implements CourseI {
             openSession();
             String hql = "FROM Course WHERE id = :courseId";
             Query<Course> query = session.createQuery(hql, Course.class);
+            query.setParameter("courseId", courseId);
             course = query.uniqueResult();
         }catch (Exception e){
             e.printStackTrace();
-        }finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
 
         return course;
     }
@@ -80,9 +83,10 @@ public class CourseService implements CourseI {
             courses = query.getResultList();
         }catch (Exception e){
             e.printStackTrace();
-        }finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
 
         return courses;
     }
