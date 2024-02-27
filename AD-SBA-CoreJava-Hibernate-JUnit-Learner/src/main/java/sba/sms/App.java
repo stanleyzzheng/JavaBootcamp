@@ -54,7 +54,7 @@ public class App {
                     userInput = input.nextInt();
                     if (userInput == 2) {
                         System.exit(0);
-                    } else {
+                    } else if(userInput == 1) {
                         List<Course> courseList = courseService.getAllCourses();
                         System.out.printf("All courses:%n-----------------------------%n");
                         System.out.printf("%-2s | %-20s | %s%n", "ID", "Course", "Instructor");
@@ -72,6 +72,8 @@ public class App {
                             System.out.printf("course id not found!%n");
                         }
                         System.out.printf("session ended!%n");
+                    } else{
+                        System.out.println("invalid input!");
                     }
                 } else {
                     System.out.printf("Incorrect username or password%n");
@@ -79,6 +81,8 @@ public class App {
             }
         } while (userInput != 2);
         input.close();
+        studentService.closeSession();
+        courseService.closeSession();
     }
 
     private static void printStudentCourses(String email) {

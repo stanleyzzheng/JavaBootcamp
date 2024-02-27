@@ -29,6 +29,7 @@ public class StudentService implements StudentI {
 
     public StudentService() {
         this.factory = HibernateUtil.getSessionFactory();
+        openSession();
 
     }
 
@@ -38,7 +39,7 @@ public class StudentService implements StudentI {
         }
     }
 
-    private void closeSession() {
+    public void closeSession() {
         if (session != null && session.isOpen()) {
             session.close();
         }
@@ -48,7 +49,6 @@ public class StudentService implements StudentI {
     public List<Student> getAllStudents() {
         List<Student> students = null;
         try {
-            openSession();
             String hql = "FROM Student";
             Query<Student> query = session.createQuery(hql, Student.class);
             students = query.getResultList();
@@ -64,7 +64,6 @@ public class StudentService implements StudentI {
     @Override
     public void createStudent(Student student) {
         try {
-            openSession();
             Transaction transaction = session.beginTransaction();
             session.persist(student);
             transaction.commit();
@@ -80,7 +79,6 @@ public class StudentService implements StudentI {
     public Student getStudentByEmail(String email) {
         Student student = null;
         try {
-            openSession();
             String hql = "FROM Student WHERE email=:email";
             Query<Student> query = session.createQuery(hql, Student.class);
             query.setParameter("email", email);
@@ -98,7 +96,6 @@ public class StudentService implements StudentI {
     public boolean validateStudent(String email, String password) {
         Student student = null;
         try{
-            openSession();
             String hql = "FROM Student WHERE email=:email AND password=:password";
             Query<Student> query = session.createQuery(hql,Student.class);
             query.setParameter("email",email);
@@ -116,15 +113,13 @@ public class StudentService implements StudentI {
     @Override
     public void registerStudentToCourse(String email, int courseId) {
         try{
-            openSession();
             Transaction tx = session.beginTransaction();
             Student s = session.get(Student.class, email);
             Set<Course> c = s.getCourses();
             Course newCourse = session.get(Course.class,courseId);
             c.add(newCourse);
             s.setCourses(c);
-//            session.merge(s);
-//            session.getTransaction().commit();
+            session.merge(s);
 
             tx.commit();
             
@@ -137,12 +132,14 @@ public class StudentService implements StudentI {
     @Override
     public List<Course> getStudentCourses(String email) {
         List<Course> studentCourses = null;
+
         try{
-            openSession();
+
             String hql = "SELECT c FROM Course c JOIN c.students s WHERE s.email=:email";
             Query<Course> query = session.createQuery(hql,Course.class);
             query.setParameter("email",email);
             studentCourses = query.getResultList();
+
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -150,5 +147,6 @@ public class StudentService implements StudentI {
 //            closeSession();
 //        }
         return studentCourses;
+
     }
 }

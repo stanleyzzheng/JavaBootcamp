@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html xmlns:th="http://www.thymeleaf.org">
+        <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+</head>
+<body>
+<div id="one">
+    <h2 th:text="${message}">
+        <span>message will print here</span>
+    </h2>
+</div >
+
+<div id="two" th:each="providerList : ${cloudProvider}">
+    <ul>
+        <li th:each="item : ${providerList}">
+            <span th:text="${item}">items will print here</span>
+        </li>
+    </ul>
+</div>
+<!--<div id="two" th:each="List:${cloudProvider}">-->
+<!--    <ul>-->
+<!--        <li th:each="item : ${List}">-->
+<!--            <span th:text="${item}">items will print here</span>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>
