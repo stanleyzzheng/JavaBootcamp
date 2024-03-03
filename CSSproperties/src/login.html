@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style media="screen">
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 62.5%;
+            height: 100%;
+        }
+
+
+
+        body {
+            font-family: sans-serif;
+            height:100vh;
+            overflow: hidden;
+            /*background-image: linear-gradient(to bottom, url("flowers.jpg");*/
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)), url('flowers.jpg'); /* Replace with your background image */
+
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            /*background-color: rgba(255, 255, 255, 0.1); !* Adjust the last value (alpha) for transparency *!*/
+
+        }
+
+        .section-login {
+            padding: 6.4rem 0 6.4rem;
+            /*background-color: orange;*/
+            margin: 12rem 0;
+            /*width: 12.8rem;*/
+            /*height: 7.2rem;*/
+
+        }
+        .login{
+            background-color: rgba(255, 255, 255, 0.8);
+            font-size: 2.4rem;
+            border-radius: 9px;
+
+        }
+        .container {
+            display: flex;
+            font-size: 1.6rem;
+            /*height: 32rem;*/
+            /*width: 12rem;*/
+            /*margin-top: 12rem;*/
+            justify-content: center;
+            max-width: 80rem;
+            padding: 0 3.2rem;
+            margin: 0 auto;
+            /*background-color: blue;*/
+
+        }
+
+        .login-form{
+            padding: 2.4rem 3.2rem;
+            display: flex;
+            flex-direction: column;
+            row-gap: 2.4rem;
+            text-align: center;
+        }
+        .input{
+            padding: 1.2rem;
+            border-radius: 9px;
+            border: 1px solid black;
+
+
+        }
+        .btn{
+            padding: 1.2rem;
+            border-radius: 9px;
+            border: 1px solid black;
+        }
+
+    </style>
+</head>
+<body>
+<section class="section-login">
+
+    <div class="container">
+        <div class="login" >
+
+
+            <form class="login-form" onsubmit="(e)=>e.preventDefault()" >
+                <h3>Login</h3>
+                <div>
+
+
+                    <input class="username input" type="text" placeholder="Username" id="username">
+                </div>
+                <div>
+
+                    <input class="password input" type="password" placeholder="Password" id="password">
+                </div>
+
+                <button class="btn">Log In</button>
+
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -25,7 +25,8 @@ public class HibernateUtil {
      * @Getter builds a standard getter method for the object
      * sessionFactory.
      */
-    @Getter
+
+//    @Getter
     private static SessionFactory sessionFactory = buildSessionFactory();
 
     /**
@@ -60,6 +61,10 @@ public class HibernateUtil {
     public static void shutdown() {
         getSessionFactory().close();
     }
+    public static SessionFactory getSessionFactory(){
+        return sessionFactory;
+    }
+
 
 
 }

@@ -23,6 +23,7 @@ public class CourseService implements CourseI {
 
     public CourseService() {
         this.factory = HibernateUtil.getSessionFactory();
+        openSession();
 
     }
 
@@ -32,7 +33,7 @@ public class CourseService implements CourseI {
         }
     }
 
-    private void closeSession() {
+    public void closeSession() {
         if (session != null && session.isOpen()) {
             session.close();
         }
@@ -41,31 +42,34 @@ public class CourseService implements CourseI {
     @Override
     public void createCourse(Course course) {
         try {
-            openSession();
+//            openSession();
             Transaction transaction = session.beginTransaction();
             session.persist(course);
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-
-            closeSession();
         }
+//        finally {
+//
+//            closeSession();
+//        }
     }
 
     @Override
     public Course getCourseById(int courseId) {
         Course course = null;
         try{
-            openSession();
+//            openSession();
             String hql = "FROM Course WHERE id = :courseId";
             Query<Course> query = session.createQuery(hql, Course.class);
+            query.setParameter("courseId", courseId);
             course = query.uniqueResult();
         }catch (Exception e){
             e.printStackTrace();
-        }finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
 
         return course;
     }
@@ -74,15 +78,16 @@ public class CourseService implements CourseI {
     public List<Course> getAllCourses() {
         List<Course> courses=null;
         try{
-            openSession();
+//            openSession();
             String hql = "FROM Course";
             Query<Course> query = session.createQuery(hql, Course.class);
             courses = query.getResultList();
         }catch (Exception e){
             e.printStackTrace();
-        }finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
 
         return courses;
     }

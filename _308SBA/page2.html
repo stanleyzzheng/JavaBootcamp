@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>page 2</title>
+  <script src="js/nav.js" defer></script>
+  <script src="js/dictionary.js" defer></script>
+  <style>
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+    }
+
+    .container1 {
+      display: flex;
+      justify-content: center;
+    }
+    table{
+      border-collapse: collapse;
+      width:90%;
+      margin-top: 2rem;
+    }
+    th, td{
+      border: 1px solid #ddd;
+      text-align: left;
+      padding: 1.2rem;
+    }
+    th{
+      background-color: #FFA500;
+    }
+    form{
+      margin-bottom: 2rem;
+    }
+    button{
+      padding: 1rem;
+      cursor: pointer;
+      border:none;
+      border-radius: 4px;
+    }
+    .search-input{
+      padding: 1rem;
+      border-radius: 5px;
+    }
+    .main{
+      margin-top: 8rem;
+    }
+    .word{
+      font-size: 3.2rem;
+      font-weight: 500;
+    }
+  </style>
+
+</head>
+<body>
+<header class="header">
+  <nav class="main-nav"></nav>
+
+</header>
+<main class="main">
+
+    <div class="container1">
+
+      <form class="search-form" action="#">
+        <h2>Search definition</h2>
+        <input class="search-input" type="text" placeholder="Search a definition">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+    <div class="container2">
+      Word: <span class="word"></span>
+      <table id="definitionsTable">
+        <thead>
+        <tr>
+          <th>Usage</th>
+          <th>Definition</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+
+      </table>
+    </div>
+
+</main>
+
+</body>
+</html>

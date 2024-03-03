@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Login</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container my-3">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h2>Create New Login</h2>
+            <form th:action="@{/save-login}" th:object="${mylogin}" method="post">
+                <div class="form-row">
+                    <div class="col-md-6 form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" th:field="*{uname}">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Password</label>
+                        <input type="text" class="form-control" th:field="*{password}">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

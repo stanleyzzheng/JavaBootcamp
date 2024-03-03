@@ -14,6 +14,7 @@ import sba.sms.utils.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * StudentService is a concrete class. This class implements the
@@ -28,6 +29,7 @@ public class StudentService implements StudentI {
 
     public StudentService() {
         this.factory = HibernateUtil.getSessionFactory();
+        openSession();
 
     }
 
@@ -37,7 +39,7 @@ public class StudentService implements StudentI {
         }
     }
 
-    private void closeSession() {
+    public void closeSession() {
         if (session != null && session.isOpen()) {
             session.close();
         }
@@ -47,46 +49,46 @@ public class StudentService implements StudentI {
     public List<Student> getAllStudents() {
         List<Student> students = null;
         try {
-            openSession();
             String hql = "FROM Student";
             Query<Student> query = session.createQuery(hql, Student.class);
             students = query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
         return students;
     }
 
     @Override
     public void createStudent(Student student) {
         try {
-            openSession();
             Transaction transaction = session.beginTransaction();
             session.persist(student);
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
     }
 
     @Override
     public Student getStudentByEmail(String email) {
         Student student = null;
         try {
-            openSession();
             String hql = "FROM Student WHERE email=:email";
             Query<Student> query = session.createQuery(hql, Student.class);
             query.setParameter("email", email);
             student = query.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
         return student;
     }
 
@@ -94,7 +96,6 @@ public class StudentService implements StudentI {
     public boolean validateStudent(String email, String password) {
         Student student = null;
         try{
-            openSession();
             String hql = "FROM Student WHERE email=:email AND password=:password";
             Query<Student> query = session.createQuery(hql,Student.class);
             query.setParameter("email",email);
@@ -102,35 +103,57 @@ public class StudentService implements StudentI {
             student = query.uniqueResult();
         }catch(Exception e){
             e.printStackTrace();
-        }finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
         return student != null;
     }
 
     @Override
     public void registerStudentToCourse(String email, int courseId) {
+<<<<<<< HEAD
 //        try{
 //            openSession();
 //
 //        }
+=======
+        try{
+            Transaction tx = session.beginTransaction();
+            Student s = session.get(Student.class, email);
+            Set<Course> c = s.getCourses();
+            Course newCourse = session.get(Course.class,courseId);
+            c.add(newCourse);
+            s.setCourses(c);
+            session.merge(s);
+
+            tx.commit();
+            
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+>>>>>>> f693a06c6eef6e51ff3d7c50d6a87143db66aec3
 
     }
 
     @Override
     public List<Course> getStudentCourses(String email) {
         List<Course> studentCourses = null;
+
         try{
-            openSession();
+
             String hql = "SELECT c FROM Course c JOIN c.students s WHERE s.email=:email";
             Query<Course> query = session.createQuery(hql,Course.class);
             query.setParameter("email",email);
             studentCourses = query.getResultList();
+
         }catch(Exception e){
             e.printStackTrace();
-        }finally {
-            closeSession();
         }
+//        finally {
+//            closeSession();
+//        }
         return studentCourses;
+
     }
 }
