@@ -23,6 +23,8 @@ import java.util.*;
 @Entity
 @Table(name = "student")
 public class Student {
+
+
     @Id
     private  String email;
     private  String name;
