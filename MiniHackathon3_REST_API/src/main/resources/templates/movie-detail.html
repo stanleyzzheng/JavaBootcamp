@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Detail</title>
+    <style>
+        html {
+            font-size: 62.5%;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: sans-serif;
+            font-size: 1.8rem;
+            line-height: 1;
+            background-color: #ffe8cc;
+
+        }
+        .text-container p {
+            display: inline;
+        }
+        .container{
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+        }
+        .description-container{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+        }
+    </style>
+</head>
+<body>
+<a href="/">Go back</a>
+<div class="container">
+
+    <div>
+
+        <h1 th:text="${movie.title}"></h1>
+<!--        <img th:src="${movie.poster}" alt="">-->
+<!--        <img th:src="'data:image/jpeg;base64,' + ${#objects.toString(#arrays.toBase64(movie.image))}" alt="Movie Poster">-->
+        <img th:src="*{'data:image/png;base64,'+ image}" />
+    </div>
+    <div class="description-container">
+
+    <div class="text-container">
+
+        <p>Year: </p>
+        <p th:text="${movie.year}"></p>
+    </div>
+    <div class="text-container">
+
+        <p>Rated:</p>
+        <p th:text="${movie.rated}"></p>
+    </div>
+    <div class="text-container">
+        <p>Released: </p>
+
+        <p th:text="${movie.released}"></p>
+    </div>
+    <div class="text-container">
+
+        <p>Runtime: </p>
+        <p th:text="${movie.runtime}"></p>
+    </div>
+    <div class="text-container">
+
+        <p>Genre: </p>
+        <p th:text="${movie.genre}"></p>
+    </div>
+    <div class="text-container">
+
+        <p>Director: </p>
+        <p th:text="${movie.director}"></p>
+    </div>
+    <div class="text-container">
+
+        <p>Writer: </p>
+        <p th:text="${movie.writer}"></p>
+    </div>
+    <div class="text-container">
+
+        <p>Actors: </p>
+        <p th:text="${movie.actors}"></p>
+    </div>
+    <div class="text-container">
+
+        <p>Plot: </p>
+        <p th:text="${movie.plot}"></p>
+    </div>
+    <div class="text-container">
+        <p>Language: </p>
+
+        <p th:text="${movie.language}"></p>
+    </div>
+    <div class="text-container">
+
+        <p>Country: </p>
+        <p th:text="${movie.country}"></p>
+    </div>
+    <div class="text-container">
+        <p>Awards: </p>
+        <p th:text="${movie.awards}"></p>
+    </div>
+    <div class="text-container">
+        <p>Rating: </p>
+        <p th:text="${movie.rottenTomatoesRating}"></p>
+    </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
