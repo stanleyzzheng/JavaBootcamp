@@ -1,6 +1,8 @@
-package stanford.sp14springsecurity;
+package stanford.sp14springsecurity.model;
 import lombok.*;
 import jakarta.persistence.*;
+import stanford.sp14springsecurity.model.Role;
+
 import java.util.Collection;
 
 @Entity
@@ -9,7 +11,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @ToString
 @Table(name="user")
-class User {
+public class User {
     @Id
     @GeneratedValue
     private long id;

@@ -1,8 +1,11 @@
-package stanford.sp14springsecurity;
+package stanford.sp14springsecurity.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import stanford.sp14springsecurity.model.Role;
+import stanford.sp14springsecurity.repository.RoleRepository;
+import stanford.sp14springsecurity.service.RoleService;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package stanford.sp14springsecurity;
+package stanford.sp14springsecurity.dto;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -6,13 +6,15 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import stanford.sp14springsecurity.FieldMatch;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @FieldMatch.List({
         @FieldMatch(first="password", second="matchingPassword",message="The password fields must match")
 })
-class UserDTO {
+public class UserDTO {
     @NotEmpty
     private String userName;
     @Pattern(regexp = "[A-Za-z]+$", message="Only alphabetic allowed")

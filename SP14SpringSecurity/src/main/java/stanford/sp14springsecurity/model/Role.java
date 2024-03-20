@@ -1,4 +1,4 @@
-package stanford.sp14springsecurity;
+package stanford.sp14springsecurity.model;
 import lombok.*;
 import jakarta.persistence.*;
 
@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @ToString
 @Entity
 
-class Role {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

@@ -1,28 +1,31 @@
-package stanford.sp14springsecurity;
+package stanford.sp14springsecurity.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import stanford.sp14springsecurity.dto.UserDTO;
+import stanford.sp14springsecurity.UserPrincipal;
+import stanford.sp14springsecurity.model.Role;
+import stanford.sp14springsecurity.model.User;
+import stanford.sp14springsecurity.repository.UserRepository;
+import stanford.sp14springsecurity.service.RoleService;
+import stanford.sp14springsecurity.service.UserService;
 
-import javax.sound.midi.SysexMessage;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
