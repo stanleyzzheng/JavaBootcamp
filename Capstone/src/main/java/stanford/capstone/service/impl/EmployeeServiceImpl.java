@@ -17,7 +17,6 @@ import org.springframework.ui.ModelMap;
 import stanford.capstone.DTO.EmployeeDTO;
 import stanford.capstone.model.Employee;
 import stanford.capstone.model.Role;
-import stanford.capstone.principal.EmployeePrincipal;
 import stanford.capstone.repository.EmployeeRepository;
 import stanford.capstone.repository.RoleRepository;
 import stanford.capstone.service.DepartmentService;
@@ -43,7 +42,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final DepartmentService departmentService;
     private final PositionService positionService;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, RoleService roleService, PasswordEncoder encoder, DepartmentService departmentService, PositionService positionService) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, RoleService roleService, PasswordEncoder encoder,
+                               DepartmentService departmentService, PositionService positionService) {
         this.employeeRepository = employeeRepository;
         this.roleService = roleService;
         this.encoder = encoder;
@@ -51,18 +51,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.positionService = positionService;
     }
 
+    //    Finds employee in repository with given ID
     @Override
     public Employee findEmployeeById(Long id) {
-        return employeeRepository.findById(id).orElse(null);
+        return employeeRepository.findById(id)
+                .orElse(null);
     }
 
+    //    Creates a new employee with employeeDTO
     @Transactional
+//    @Override
     public void create(EmployeeDTO employeeDTO) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-//        Employee employee = modelMapper.map(employeeDTO, Employee.class);
+
         Employee employee = new Employee();
-        employee.setId(employeeDTO.getId());
+//        employee.setId(null);
         employee.setFirstName(employeeDTO.getFirstName());
         employee.setLastName(employeeDTO.getLastName());
         employee.setEmail(employeeDTO.getEmail());
@@ -75,13 +77,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPosition(positionService.findPositionById(employeeDTO.getPositionId()));
         employeeRepository.save(employee);
     }
-
+//Updates employee in database with an updated employee DTO
     @Transactional
-    public void updateEmployee(Long employeeId, EmployeeDTO updatedEmployeeDTO){
+//    @Override
+    public void updateEmployee(Long employeeId, EmployeeDTO updatedEmployeeDTO) {
         Employee existingEmployee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new EntityNotFoundException("Employee not found with id: " + employeeId));
 
         // Update the attributes of the existing employee with the new values
+        existingEmployee.setId(updatedEmployeeDTO.getId());
         existingEmployee.setFirstName(updatedEmployeeDTO.getFirstName());
         existingEmployee.setLastName(updatedEmployeeDTO.getLastName());
         existingEmployee.setEmail(updatedEmployeeDTO.getEmail());
@@ -94,15 +98,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         // Save the updated employee back to the database
         employeeRepository.save(existingEmployee);
     }
+// deletes employee from repository
     @Transactional
-    public void deleteEmployee(Long employeeId){
-        if (employeeRepository.existsById(employeeId)) {
-            employeeRepository.deleteById(employeeId);
-        } else {
-            throw new EntityNotFoundException("Employee not found with ID: " + employeeId);
-        }
-    }
+    public void deleteEmployee(Long employeeId) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new EntityNotFoundException("Employee not found with id: " + employeeId));
 
+        employee.getRoles()
+                .clear(); // This removes all associated roles from the employee
+
+        // Delete the employee
+        employeeRepository.delete(employee);
+    }
+// finds an employee with email
     public Employee findEmployeeByEmail(String email) {
         return employeeRepository.findEmployeeByEmail(email);
     }
@@ -112,20 +120,12 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
-
+// Finds all employee by department ID
     @Transactional(readOnly = true)
     public List<Employee> findAllByDepartment(Long departmentId) {
         return employeeRepository.findAllByDepartmentId(departmentId);
     }
 
-//    @Override
-//    @Transactional
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Employee employee = employeeRepository.findEmployeeByEmail(username);
-//        if(employee == null){
-//            throw new UsernameNotFoundException("Invalid username or password.");
-//        }
-//        return new EmployeePrincipal(employee, roleService.getRolesByEmployee(employee.getId()));
-//    }
+
 
 }

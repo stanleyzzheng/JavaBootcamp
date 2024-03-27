@@ -8,16 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuthController {
 
-//    @GetMapping("/register")
-//    public String showRegistrationForm(Model model){
-//        return "register";
-//    }
-//
-//    @GetMapping("/login")
-//    public String showLoginForm(Model model){
-//        return "login";
-//    }
-
+// Shows index page which is also the login page
     @GetMapping("/")
     private String showIndex(@RequestParam(name = "error", required = false) String error, Model model){
         if (error != null) {

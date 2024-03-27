@@ -7,6 +7,7 @@ import stanford.capstone.repository.PositionRepository;
 import stanford.capstone.service.PositionService;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,5 +18,10 @@ public class PositionServiceImpl implements PositionService {
     public Position findPositionById(Long id) {
         Optional<Position> position = positionRepository.findById(id);
         return position.orElse(null);
+    }
+
+    @Override
+    public List<Position> getAllPositions() {
+        return positionRepository.findAll();
     }
 }

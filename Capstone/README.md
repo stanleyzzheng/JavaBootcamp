@@ -1,0 +1,1 @@
+This project contains a Employee Management System which allows Users to manage their company employees and departments

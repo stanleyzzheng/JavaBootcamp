@@ -18,10 +18,12 @@ body {
 }
 .main-container {
     display:flex;
-    align-content: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    /*justify-content: center;*/
     margin-top: 2.4rem;
-    margin-bottom: 3.2rem;
+    margin-bottom: 4.2rem;
 }
 .departments-container{
     display: flex;
@@ -39,7 +41,13 @@ ul{
 .container{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    /*width: 300rem;*/
+    padding: 0 82rem;
+    margin: 0 auto;
+}
+a{
+    text-decoration: none;
 }
 
 /*.main-nav-list {*/

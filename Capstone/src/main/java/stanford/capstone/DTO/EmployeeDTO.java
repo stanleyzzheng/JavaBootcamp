@@ -16,6 +16,8 @@ public class EmployeeDTO {
     private Long positionId;
     private boolean online;
 
+    public EmployeeDTO() {
+    }
 
     public String getPassword() {
         return password;

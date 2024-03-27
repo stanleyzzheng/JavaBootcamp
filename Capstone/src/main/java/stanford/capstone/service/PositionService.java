@@ -8,5 +8,7 @@ public interface PositionService {
 //    public void savePosition(Position position);
 //    public Position findPositionByName(String name);
     public Position findPositionById(Long id);
+
+    List<Position> getAllPositions();
 //    public List<Position> getAllPositions();
 }

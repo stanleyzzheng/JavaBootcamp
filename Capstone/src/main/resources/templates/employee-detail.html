@@ -19,6 +19,9 @@
     <p>Position: <span th:text="${employee.getPosition().getName()}"></span></p>
     <p>Salary: <span th:text="${employee.salary}"></span></p>
     <p>Online: <span th:text="${employee.online} ? 'Yes' : 'No'"></span></p>
+    <a th:href="@{/manage/updateEmployee/{id}(id=${employee.id})}">Update Employee</a>
+    <a th:href="@{/manage/deleteEmployee/{id}(id=${employee.id})}">Delete Employee</a>
+
 </div>
 </body>
 </html>

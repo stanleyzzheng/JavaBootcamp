@@ -39,6 +39,7 @@ public class EmployeeController {
                     .build();
         }
     }
+//    Returns Employee detail for single employee by searching for employee_id in database
     @GetMapping("/employeeDetail/{id}")
     private String showEmployeeDetailsById(@PathVariable Long id, Model model){
         Employee employee = employeeService.findEmployeeById(id);
@@ -50,28 +51,16 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.findAllByDepartment(departmentId));
     }
 //Create new employee controller
-    @PostMapping
-    private ResponseEntity<String> createEmployee(@RequestBody EmployeeDTO employeeDTO){
-        employeeService.create(employeeDTO);
-        return new ResponseEntity<>("Employee Created successfully: " , HttpStatus.CREATED);
-    }
-//    update employee controller
-    @PutMapping("/{requestedId}")
-    private ResponseEntity<Void> updateEmployee(@PathVariable Long requestedId, @RequestBody EmployeeDTO employeeDTO){
+
+//    update employee controller, redirects to /manage/departments afterwords.
+    @PostMapping("/update/{requestedId}")
+    private String updateEmployee(@PathVariable Long requestedId, @ModelAttribute("employee") EmployeeDTO employeeDTO){
         employeeService.updateEmployee(requestedId, employeeDTO);
-        return ResponseEntity.noContent().build();
+        return "redirect:/manage/departments";
+//        return ResponseEntity.noContent().build();
     }
-    @DeleteMapping("/{requestedId}")
-    private ResponseEntity<Void> deleteEmployee(@PathVariable Long requestedId){
-        try {
-            employeeService.deleteEmployee(requestedId);
-            return ResponseEntity.noContent().build(); // Success: 204 No Content
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build(); // Employee not found: 404 Not Found
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Other errors: 500 Internal Server Error
-        }
-    }
+
+
 
 
 }
