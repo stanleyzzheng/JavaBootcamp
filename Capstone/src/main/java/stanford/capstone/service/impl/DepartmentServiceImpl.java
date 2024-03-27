@@ -6,6 +6,7 @@ import stanford.capstone.model.Department;
 import stanford.capstone.repository.DepartmentRepository;
 import stanford.capstone.service.DepartmentService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,5 +22,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department findDepartmentById(Long id) {
         Optional<Department> departmentOptional = departmentRepository.findById(id);
         return departmentOptional.orElse(null);
+    }
+
+    @Override
+    public List<Department> findAllDepartments() {
+        return departmentRepository.findAll();
     }
 }

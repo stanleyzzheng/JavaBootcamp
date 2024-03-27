@@ -7,12 +7,31 @@ public class EmployeeDTO {
     private Long id;
     private String firstName;
     private String lastName;
+    private String password;
     private String email;
     private String gender;
     private double salary;
     private Long departmentId;
 
     private Long positionId;
+    private boolean online;
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
 
     public Long getId() {
         return id;

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Departments</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div th:insert="navbar :: navbar"></div>
+<div class="main-container">
+
+    <h1>Departments</h1>
+
+</div>
+<div class="departments-container">
+    <ul>
+        <li th:each="department : ${departments}">
+            <a th:href="@{/manage/departments/{id}(id=${department.id})}" th:text="${department.name}"></a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

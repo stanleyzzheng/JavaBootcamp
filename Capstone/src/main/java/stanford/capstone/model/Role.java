@@ -2,6 +2,9 @@ package stanford.capstone.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Role {
     @Id
@@ -9,6 +12,9 @@ public class Role {
     private Long id;
     @Column(nullable = false,unique = true)
     private String name;
+
+    @ManyToMany(mappedBy="roles")
+    List<Employee> employees = new ArrayList<>();
 
     public Long getId() {
         return id;

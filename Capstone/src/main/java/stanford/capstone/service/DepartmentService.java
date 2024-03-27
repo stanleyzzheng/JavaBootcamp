@@ -2,6 +2,10 @@ package stanford.capstone.service;
 
 import stanford.capstone.model.Department;
 
+import java.util.List;
+
 public interface DepartmentService {
-    public Department findDepartmentById(Long id);
+     Department findDepartmentById(Long id);
+     List<Department> findAllDepartments();
+
 }

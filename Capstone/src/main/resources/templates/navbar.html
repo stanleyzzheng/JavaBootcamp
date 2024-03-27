@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header class="header" th:fragment="navbar">
+    <link rel="stylesheet" type="text/css" href="/css/nav.css">
+    <nav class="main-nav">
+        <a href="/manage">
+            <!--            <img class="logo" alt="Stanley's website logo" src=""/>-->
+            Home
+        </a>
+        <ul class="main-nav-list">
+
+            <li class="dropdown">
+                <a class="main-nav-link" href="#">Menu</a>
+
+                <div class="dropdown-content">
+                    <a href="/manage">Manage</a>
+                    <a href="/manage/departments">Departments</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+</html>

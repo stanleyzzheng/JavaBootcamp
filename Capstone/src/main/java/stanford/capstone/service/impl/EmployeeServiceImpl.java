@@ -1,5 +1,6 @@
 package stanford.capstone.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MatchingStrategy;
@@ -21,40 +22,85 @@ import stanford.capstone.repository.EmployeeRepository;
 import stanford.capstone.repository.RoleRepository;
 import stanford.capstone.service.DepartmentService;
 import stanford.capstone.service.EmployeeService;
+import stanford.capstone.service.PositionService;
 import stanford.capstone.service.RoleService;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
-    private RoleService roleService;
+    private final RoleService roleService;
 
-    private PasswordEncoder encoder;
+    private final PasswordEncoder encoder;
 
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
+    private final PositionService positionService;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, RoleService roleService, PasswordEncoder encoder, DepartmentService departmentService) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, RoleService roleService, PasswordEncoder encoder, DepartmentService departmentService, PositionService positionService) {
         this.employeeRepository = employeeRepository;
         this.roleService = roleService;
         this.encoder = encoder;
         this.departmentService = departmentService;
+        this.positionService = positionService;
+    }
+
+    @Override
+    public Employee findEmployeeById(Long id) {
+        return employeeRepository.findById(id).orElse(null);
     }
 
     @Transactional
     public void create(EmployeeDTO employeeDTO) {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        Employee employee = modelMapper.map(employeeDTO, Employee.class);
-        employee.setPassword(encoder.encode(employee.getPassword()));
+//        ModelMapper modelMapper = new ModelMapper();
+//        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+//        Employee employee = modelMapper.map(employeeDTO, Employee.class);
+        Employee employee = new Employee();
+        employee.setId(employeeDTO.getId());
+        employee.setFirstName(employeeDTO.getFirstName());
+        employee.setLastName(employeeDTO.getLastName());
+        employee.setEmail(employeeDTO.getEmail());
+        employee.setGender(employeeDTO.getGender());
+        employee.setSalary(employeeDTO.getSalary());
+        employee.setOnline(employeeDTO.isOnline());
+        employee.setPassword(encoder.encode(employeeDTO.getPassword()));
         employee.setRoles(Arrays.asList(roleService.findRoleByRoleName("ROLE_EMPLOYEE")));
         employee.setDepartment(departmentService.findDepartmentById(employeeDTO.getDepartmentId()));
+        employee.setPosition(positionService.findPositionById(employeeDTO.getPositionId()));
         employeeRepository.save(employee);
+    }
+
+    @Transactional
+    public void updateEmployee(Long employeeId, EmployeeDTO updatedEmployeeDTO){
+        Employee existingEmployee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new EntityNotFoundException("Employee not found with id: " + employeeId));
+
+        // Update the attributes of the existing employee with the new values
+        existingEmployee.setFirstName(updatedEmployeeDTO.getFirstName());
+        existingEmployee.setLastName(updatedEmployeeDTO.getLastName());
+        existingEmployee.setEmail(updatedEmployeeDTO.getEmail());
+        existingEmployee.setGender(updatedEmployeeDTO.getGender());
+        existingEmployee.setSalary(updatedEmployeeDTO.getSalary());
+        existingEmployee.setDepartment(departmentService.findDepartmentById(updatedEmployeeDTO.getDepartmentId()));
+        existingEmployee.setPosition(positionService.findPositionById(updatedEmployeeDTO.getPositionId()));
+        existingEmployee.setOnline(updatedEmployeeDTO.isOnline());
+
+        // Save the updated employee back to the database
+        employeeRepository.save(existingEmployee);
+    }
+    @Transactional
+    public void deleteEmployee(Long employeeId){
+        if (employeeRepository.existsById(employeeId)) {
+            employeeRepository.deleteById(employeeId);
+        } else {
+            throw new EntityNotFoundException("Employee not found with ID: " + employeeId);
+        }
     }
 
     public Employee findEmployeeByEmail(String email) {
@@ -67,14 +113,19 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Employee employee = employeeRepository.findEmployeeByEmail(username);
-        if(employee == null){
-            throw new UsernameNotFoundException("Invalid username or password.");
-        }
-        return new EmployeePrincipal(employee, roleService.getRolesByEmployee(employee.getId()));
+    @Transactional(readOnly = true)
+    public List<Employee> findAllByDepartment(Long departmentId) {
+        return employeeRepository.findAllByDepartmentId(departmentId);
     }
+
+//    @Override
+//    @Transactional
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        Employee employee = employeeRepository.findEmployeeByEmail(username);
+//        if(employee == null){
+//            throw new UsernameNotFoundException("Invalid username or password.");
+//        }
+//        return new EmployeePrincipal(employee, roleService.getRolesByEmployee(employee.getId()));
+//    }
 
 }

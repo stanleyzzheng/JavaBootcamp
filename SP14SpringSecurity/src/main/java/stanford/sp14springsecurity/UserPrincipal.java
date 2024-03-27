@@ -3,12 +3,14 @@ package stanford.sp14springsecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import stanford.sp14springsecurity.model.Role;
+import stanford.sp14springsecurity.model.User;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class UserPrincipal implements UserDetails {
+public class UserPrincipal implements UserDetails {
     private User user;
     private List<Role> roles;
 
@@ -17,33 +19,41 @@ class UserPrincipal implements UserDetails {
         this.user = user;
         this.roles = roles;
     }
+
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){
-        return roles.stream().map(role-> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
     }
+
     @Override
-    public String getPassword(){
+    public String getPassword() {
         return this.user.getPassword();
     }
+
     @Override
-    public String getUsername(){
+    public String getUsername() {
         return this.user.getEmail();
     }
+
     @Override
-    public boolean isAccountNonExpired(){
-        return true;
-    }
-    @Override
-    public boolean isAccountNonLocked(){
-        return true;
-    }
-    @Override
-    public boolean isCredentialsNonExpired(){
+    public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
-    public boolean isEnabled(){
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
         return true;
     }
 

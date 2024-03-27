@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+<div th:insert="navbar :: navbar"></div>
+<div class="employee-details">
+
+    <h1>Employee Details</h1>
+    <p>ID: <span th:text="${employee.id}"></span></p>
+    <p>First Name: <span th:text="${employee.firstName}"></span></p>
+    <p>Last Name: <span th:text="${employee.lastName}"></span></p>
+    <p>Email: <span th:text="${employee.email}"></span></p>
+    <p>Gender: <span th:text="${employee.gender}"></span></p>
+    <p>Position: <span th:text="${employee.getPosition().getName()}"></span></p>
+    <p>Salary: <span th:text="${employee.salary}"></span></p>
+    <p>Online: <span th:text="${employee.online} ? 'Yes' : 'No'"></span></p>
+</div>
+</body>
+</html>

@@ -15,6 +15,8 @@ public class Employee {
     private String password;
     private String gender;
     private double salary;
+    private boolean online;
+
 
     public String getPassword() {
         return password;
@@ -31,8 +33,8 @@ public class Employee {
     @JoinColumn(name="position_id")
     private Position position;
 
-    @ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name="users_roles", joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
+    @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="employee_role", joinColumns = @JoinColumn(name="employee_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
 
     public Collection<Role> getRoles() {
@@ -41,6 +43,14 @@ public class Employee {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
     }
 
     public Long getId() {
