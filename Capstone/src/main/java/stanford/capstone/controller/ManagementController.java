@@ -38,6 +38,13 @@ public class ManagementController {
         return "manage-departments";
     }
 
+    @GetMapping("/employees")
+    public String showEmployees(Model model){
+        List<Employee> employees = employeeService.findAllEmployees();
+        model.addAttribute("employees", employees);
+        return "manage-employees";
+    }
+
     // Get mapping for department details. and employees associated with department.
     @GetMapping("/departments/{departmentId}")
     public String showDepartmentDetails(@PathVariable Long departmentId, Model model) {

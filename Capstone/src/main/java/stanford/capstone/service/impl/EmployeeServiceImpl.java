@@ -51,6 +51,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.positionService = positionService;
     }
 
+    @Override
+    public List<Employee> findAllEmployees() {
+        return employeeRepository.findAll();
+    }
+
     //    Finds employee in repository with given ID
     @Override
     public Employee findEmployeeById(Long id) {

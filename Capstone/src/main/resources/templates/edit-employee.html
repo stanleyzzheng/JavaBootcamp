@@ -14,30 +14,30 @@
 <form action="#" th:action="@{/employees/update/{id}(id=${employeeDTO.id})}" th:object="${employeeDTO}" method="POST">
     <div class="container">
 
-        <input type="hidden" th:field="*{id}" />
-        <input type="hidden" th:field="*{gender}" />
-<!--        <input type="hidden" th:field="*{departmentId}">-->
-<!--        <input type="hidden" th:field="*{positionId}">-->
-<!--        <input type="hidden">-->
+    <div class="form-container">
 
-        <div>
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{gender}"/>
+
+
+        <div class="form-row">
             <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" th:field="*{firstName}" />
+            <input type="text" id="firstName" th:field="*{firstName}"/>
         </div>
-        <div>
+        <div class="form-row">
             <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" th:field="*{lastName}" />
+            <input type="text" id="lastName" th:field="*{lastName}"/>
         </div>
-        <div>
+        <div class="form-row">
             <label for="email">Email:</label>
-            <input type="email" id="email" th:field="*{email}" />
+            <input type="email" id="email" th:field="*{email}"/>
         </div>
-        <div>
+        <div class="form-row">
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" th:field="*{password}" required>
         </div>
-        <div>
+        <div class="form-row">
 
             <!--    <label for="positionId">Position ID:</label>-->
             <!--    <input type="number" id="positionId" name="positionId" th:field="*{positionId}" required>-->
@@ -48,7 +48,7 @@
             </select>
         </div>
 
-        <div>
+        <div class="form-row">
 
             <label for="positionId">Position:</label>
             <select id="positionId" name="positionId" th:field="*{positionId}" required>
@@ -57,12 +57,16 @@
             </select>
         </div>
 
-        <div>
+        <div class="form-row">
             <label for="salary">Salary:</label>
-            <input type="number" id="salary" th:field="*{salary}" />
+            <input type="number" id="salary" th:field="*{salary}"/>
         </div>
         <!-- Add more fields as needed -->
-        <button type="submit">Save Changes</button>
+        <div class="form-row">
+
+            <button class="submit-btn" type="submit">Save Changes</button>
+        </div>
+    </div>
 
     </div>
 

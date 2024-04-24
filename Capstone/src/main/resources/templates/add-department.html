@@ -9,20 +9,26 @@
 <div th:insert="navbar :: navbar"></div>
 <div class="main-container">
 
-<h1>Add Department</h1>
+    <h1>Add Department</h1>
 
-<form action="#" th:action="@{/manage/departments}" th:object="${department}" method="post">
-    <div class="container">
+    <form action="#" th:action="@{/manage/departments}" th:object="${department}" method="post">
+        <div class="form-container">
+            <div class="form-row">
 
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" th:field="*{name}" required>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" th:field="*{name}" required>
+            </div>
+            <div class="form-row">
 
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" th:field="*{description}" required></textarea>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" th:field="*{description}" required></textarea>
+            </div>
+            <div class="form-row">
 
-    <button type="submit">Submit</button>
-    </div>
-</form>
+                <button class="submit-btn" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
 </div>
 </body>
 </html>

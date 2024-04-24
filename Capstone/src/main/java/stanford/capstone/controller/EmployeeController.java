@@ -46,6 +46,7 @@ public class EmployeeController {
         model.addAttribute("employee", employee);
         return "employee-detail";
     }
+//    Get single department (id)
     @GetMapping("/department/{departmentId}")
     private ResponseEntity<List<Employee>> findAllEmployeesByDepartment(@PathVariable Long departmentId){
         return ResponseEntity.ok(employeeService.findAllByDepartment(departmentId));

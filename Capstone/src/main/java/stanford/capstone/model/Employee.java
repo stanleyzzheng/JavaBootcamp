@@ -16,7 +16,15 @@ public class Employee {
     private String gender;
     private double salary;
     private boolean online;
+    private String imageUrl;
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public String getPassword() {
         return password;

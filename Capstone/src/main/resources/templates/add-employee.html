@@ -15,22 +15,24 @@
 
 <form th:action="@{/manage/employee}" th:object="${employee}" method="post">
     <div class="container">
-        <div>
+
+    <div class="form-container">
+        <div class="form-row">
 
             <label for="firstName">First Name:</label>
             <input type="text" id="firstName" name="firstName" th:field="*{firstName}" required>
         </div>
-        <div>
+        <div class="form-row">
 
             <label for="lastName">Last Name:</label>
             <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required>
         </div>
-        <div>
+        <div class="form-row">
 
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" th:field="*{email}" required>
         </div>
-        <div>
+        <div class="form-row">
 
             <label for="gender">Gender:</label>
             <select id="gender" name="gender" th:field="*{gender}" required>
@@ -39,12 +41,12 @@
             </select>
         </div>
 
-        <div>
+        <div class="form-row">
 
             <label for="salary">Salary:</label>
             <input type="number" id="salary" name="salary" th:field="*{salary}" required>
         </div>
-        <div>
+        <div class="form-row">
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" th:field="*{password}" required>
@@ -52,7 +54,7 @@
 
         <!--    <label for="departmentId">Department ID:</label>-->
         <!--    <input type="number" id="departmentId" name="departmentId" th:field="*{departmentId}" required>-->
-        <div>
+        <div class="form-row">
 
             <!--    <label for="positionId">Position ID:</label>-->
             <!--    <input type="number" id="positionId" name="positionId" th:field="*{positionId}" required>-->
@@ -63,7 +65,7 @@
             </select>
         </div>
 
-        <div>
+        <div class="form-row">
 
             <label for="positionId">Position:</label>
             <select id="positionId" name="positionId" th:field="*{positionId}" required>
@@ -72,16 +74,18 @@
             </select>
         </div>
 
-        <div>
+        <div class="form-row">
 
             <label for="online">Online:</label>
             <input type="checkbox" id="online" name="online" th:field="*{online}">
         </div>
-        <div>
+        <div class="form-row">
 
-            <button type="submit">Submit</button>
+            <button class="submit-btn"type="submit">Submit</button>
         </div>
     </div>
+    </div>
+
 
 </form>
 </body>

@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${department.getName()}"></title>
+    <title>Manage Employees page</title>
     <link rel="stylesheet" href="/css/style.css">
+
 </head>
 <body>
 <div th:insert="navbar :: navbar"></div>
-
 <div class="main-container">
-    <h1 th:text="${department.getDescription()}"></h1>
-    <a href="/manage/add-employee">Add an Employee</a>
+
+    <h1>Departments</h1>
+    <a href="/manage/add-employee">Add Employee</a>
 </div>
 <main class="main-section">
 
     <div class="container">
-        <h2>Employees in this Department:</h2>
+        <h2>List of employees:</h2>
         <!--        <ul>-->
         <!--            <li class="list-item" th:each="employee : ${employees}">-->
         <!--                <a th:href="@{/employees/employeeDetail/{id}(id=${employee.id})}">-->
@@ -42,7 +43,7 @@
                 <td th:text="${employee.online ? 'Online' : 'Offline'}"></td>
                 <td>
                     <a th:href="@{/employees/employeeDetail/{id}(id=${employee.id})}">
-                        <span th:text="Edit"></span>
+                        <span th:text="Details"></span>
                     </a>
                 </td>
             </tr>

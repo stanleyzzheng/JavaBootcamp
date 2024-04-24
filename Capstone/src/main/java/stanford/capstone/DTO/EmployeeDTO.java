@@ -15,8 +15,19 @@ public class EmployeeDTO {
 
     private Long positionId;
     private boolean online;
+    private String imageUrl;
+
+
 
     public EmployeeDTO() {
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getPassword() {

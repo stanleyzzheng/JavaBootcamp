@@ -8,19 +8,113 @@
 </head>
 <body>
 <div th:insert="navbar :: navbar"></div>
+<div class="main-container">
+    <h1>Employee Details</h1>
+
+</div>
 <div class="employee-details">
 
-    <h1>Employee Details</h1>
-    <p>ID: <span th:text="${employee.id}"></span></p>
-    <p>First Name: <span th:text="${employee.firstName}"></span></p>
-    <p>Last Name: <span th:text="${employee.lastName}"></span></p>
-    <p>Email: <span th:text="${employee.email}"></span></p>
-    <p>Gender: <span th:text="${employee.gender}"></span></p>
-    <p>Position: <span th:text="${employee.getPosition().getName()}"></span></p>
-    <p>Salary: <span th:text="${employee.salary}"></span></p>
-    <p>Online: <span th:text="${employee.online} ? 'Yes' : 'No'"></span></p>
-    <a th:href="@{/manage/updateEmployee/{id}(id=${employee.id})}">Update Employee</a>
-    <a th:href="@{/manage/deleteEmployee/{id}(id=${employee.id})}">Delete Employee</a>
+    <!--    <div>-->
+
+    <!--        <p>ID: <span th:text="${employee.id}"></span></p>-->
+    <!--        <p>First Name: <span th:text="${employee.firstName}"></span></p>-->
+    <!--        <p>Last Name: <span th:text="${employee.lastName}"></span></p>-->
+    <!--        <p>Email: <span th:text="${employee.email}"></span></p>-->
+    <!--        <p>Gender: <span th:text="${employee.gender}"></span></p>-->
+    <!--        <p>Position: <span th:text="${employee.getPosition().getName()}"></span></p>-->
+    <!--        <p>Salary: <span th:text="${employee.salary}"></span></p>-->
+    <!--        <p>Online: <span th:text="${employee.online} ? 'Yes' : 'No'"></span></p>-->
+    <!--        <a th:href="@{/manage/updateEmployee/{id}(id=${employee.id})}">Edit Employee</a>-->
+    <!--        <a th:href="@{/manage/deleteEmployee/{id}(id=${employee.id})}">Delete Employee</a>-->
+
+    <!--    </div>-->
+    <div></div>
+    <table class="employees-detail-table">
+        <!--        <thead>-->
+        <!--        <tr>-->
+        <!--            <th>First Name</th>-->
+        <!--            <th>Last Name</th>-->
+        <!--            <th>Email</th>-->
+        <!--            <th>Gender</th>-->
+        <!--            <th>Status</th>-->
+        <!--        </tr>-->
+
+        <!--        </thead>-->
+
+        <!--        ID: 1-->
+
+        <!--        First Name: first1-->
+
+        <!--        Last Name: last1-->
+
+        <!--        Email: test123@gmail.com-->
+
+        <!--        Gender: male-->
+
+        <!--        Position: Software Engineer-->
+
+        <!--        Salary: 12345.0-->
+
+        <!--        Online: Yes-->
+        <tbody>
+        <tr></tr>
+        <tr>
+            <td>id:</td>
+            <td th:text="${employee.id}"></td>
+
+            <!--            <td th:text="${employee.lastName}"></td>-->
+            <!--            <td th:text="${employee.email}"></td>-->
+            <!--            <td th:text="${employee.gender}"></td>-->
+            <!--            <td th:text="${employee.online ? 'Online' : 'Offline'}"></td>-->
+            <!--            <td>-->
+            <!--                <a th:href="@{/employees/employeeDetail/{id}(id=${employee.id})}">-->
+            <!--                    <span th:text="Edit"></span>-->
+            <!--                </a>-->
+            <!--            </td>-->
+            <!--            <td>-->
+            <!--                <a th:href="@{/manage/deleteEmployee/{id}(id=${employee.id})}"><span th:text="Delete"></span></a>-->
+            <!--            </td>-->
+        </tr>
+        <tr>
+            <td>first name:</td>
+            <td th:text="${employee.firstName}"></td>
+        </tr>
+        <tr>
+            <td>last name:</td>
+            <td th:text="${employee.lastName}"></td>
+        </tr>
+        <tr>
+            <td>email:</td>
+            <td th:text="${employee.email}"></td>
+        </tr>
+        <tr>
+            <td>gender:</td>
+            <td th:text="${employee.gender}"></td>
+        </tr>
+        <tr>
+            <td>position:</td>
+            <td th:text="${employee.getPosition().getName()}"></td>
+        </tr>
+        <tr>
+            <td>salary:</td>
+            <td th:text="${employee.salary}"></td>
+        </tr>
+        <tr>
+            <td>online status:</td>
+            <td th:text="${employee.online ? 'Online' : 'Offline'}"></td>
+        </tr>
+        <!--            -->
+        <tr>
+            <td><a th:href="@{/manage/updateEmployee/{id}(id=${employee.id})}">
+                <span th:text="Edit"></span>
+            </a></td>
+            <td>
+            <a th:href="@{/manage/deleteEmployee/{id}(id=${employee.id})}"><span th:text="Delete"></span></a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
 
 </div>
 </body>

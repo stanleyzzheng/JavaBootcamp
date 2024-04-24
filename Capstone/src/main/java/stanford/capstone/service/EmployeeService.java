@@ -20,4 +20,6 @@ public interface EmployeeService {
     List<Employee> findAllByDepartment(Long departmentId);
 
     Employee findEmployeeById(Long id);
+
+    List<Employee> findAllEmployees();
 }
